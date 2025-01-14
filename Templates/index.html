@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='images/a.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Montserrat', sans-serif;
+            /* Make sure the body font uses Montserrat */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Ensures footer is pushed down */
+        }
+
+        /* Container for the entire navigation bar */
+        .navbox {
+            background-color: rgba(82, 81, 81, 0.3);
+            /* Light background color */
+            border-bottom: 1px solid black;
+            padding: 0;
+        }
+
+        /* Navigation styles */
+        .nav {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            background-color:rgb(22, 22, 22);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            padding: 0;
+        }
+
+        /* List styles */
+        .nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        /* List item styles */
+        .nav ul li {
+            margin-right: 20px;
+            /* Adds space between list items */
+        }
+
+        /* Link styles */
+        .nav ul li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            /* Sets text color to white */
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease, transform 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav ul li img {
+            height: 160px;
+            width: 200px;
+            /* Adjust logo size for consistency */
+        }
+
+        /* Hover effect for links */
+        .nav ul li a:hover {
+            color: rgba(200, 16, 16, 0.693);
+            /* Changes color on hover */
+            transform: translateX(10px);
+            /* Moves the link to the right by 10px */
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(22, 22, 22);
+            /* Semi-transparent gray */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: "Montserrat", serif;
+        }
+
+        /* Container for content */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: 65vh;
+            margin-top: 50px;
+            flex-grow: 1;
+            /* Allow container to grow and push footer down */
+            padding-bottom: 80px;
+            text-align: center;
+            /* Prevents content from overlapping footer */
+        }
+
+        /* Column styles */
+        .column {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            transform: translateY(8px);
+        }
+
+
+            /* Box styles */
+            .box {
+                border: 1px solid rgb(0, 0, 0);
+                padding: 10px;
+                width: 250px;
+                height: 250px;
+                background-color: rgb(59, 59, 59);
+                /* Semi-transparent background */
+                border-radius: 10px;
+                box-shadow: 0 2px 4px grey;
+                transition: transform 0.2s ease;
+                margin: 15px;
+                justify-content: space-around;
+                font-size: medium;
+                color: white;
+                /* Makes text white */
+                font-weight: bold;
+                text-decoration: none;
+                /* Removes underline from links */
+                display: flex;
+            }
+
+
+            .box:hover {
+                transform: scale(1.05);
+                animation: glow 2s infinite alternate;
+                
+            }
+
+            .currency {
+                background-image: url("{{ url_for('static', filename='images/currency.png') }}");
+                background-position: center;
+                background-size: cover;
+            }
+
+            .unit {
+                background-image: url("{{ url_for('static', filename='images/unit.png') }}");
+                background-position: center;
+                background-size: cover;
+            }
+            .note {
+                background-image: url("{{ url_for('static', filename='images/note.png') }}");
+                background-position: center;
+                background-size: cover;
+
+            }
+
+            @keyframes glow {
+        from {
+            box-shadow: 0 0 10px rgba(208, 43, 43, 0.869);
+            
+        }
+
+        to {
+            box-shadow: 0 0 20px rgba(62, 25, 183, 0.965),
+                0 0 30px rgba(243, 27, 27, 0.707),
+                0 0 40px rgba(76, 18, 126, 0.807);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="navbox">
+        <header class="header">
+            <nav class="nav">
+                <ul>
+                    <li><a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo.png') }}"alt="Site Logo" height="80px"width="150px"></a></li>
+                    <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="column">
+            <a href="{{ url_for('currency') }}" class="box currency">
+                Currency Converter
+            </a>
+            <a href="{{ url_for('unit') }}" class="box unit">
+                Unit Converter
+            </a>
+            <a href="{{ url_for('notes') }}" class="box note">
+                Notes Editor
+            </a>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 SwiftTools. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
