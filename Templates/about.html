@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            background-image: url("{{ url_for('static', filename='images/a.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Montserrat', sans-serif;
+            /* Make sure the body font uses Montserrat */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Ensures footer is pushed down */
+        }
+
+        /* Container for the entire navigation bar */
+        .navbox {
+            background-color: rgba(22, 22, 22);
+            /* Light background color */
+            border-bottom: 1px solid black;
+            padding: 0;
+        }
+
+        /* Navigation styles */
+        .nav {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            /* Aligns logo and links on opposite sides */
+            align-items: center;
+            /* Vertically centers items */
+            padding: 0;
+        }
+
+        /* List styles */
+        .nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        /* List item styles */
+        .nav ul li {
+            margin-right: 20px;
+            /* Adds space between list items */
+        }
+
+        /* Link styles */
+        .nav ul li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            /* Sets text color to white */
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease, transform 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav ul li img {
+            height: 160px;
+            width: 200px;
+            /* Adjust logo size for consistency */
+        }
+
+        /* Hover effect for links */
+        .nav ul li a:hover {
+            color: rgb(200, 16, 16);
+            /* Changes color on hover */
+            transform: translateX(10px);
+            /* Moves the link to the right by 10px */
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(22, 22, 22);
+            /* Semi-transparent gray */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: "Montserrat", serif;
+        }
+
+        /* Container for content */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+            flex-grow: 1;
+            /* Allow container to grow and push footer down */
+            padding-bottom: 80px;
+            /* Prevents content from overlapping footer */
+        }
+
+        /* Column styles */
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Box styles */
+        .box {
+            border: 1px solid rgb(0, 0, 0);
+            padding: 10px;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(102, 102, 102);
+            /* Semi-transparent background */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px grey;
+            transition: transform 0.2s ease;
+            margin: 15px;
+            text-align: center;
+            font-size: medium;
+            color: white;
+            /* Makes text white */
+            font-weight: bold;
+            text-decoration: none;
+            /* Removes underline from links */
+            display: flex;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            animation: glow 2s infinite alternate;
+        }
+
+        .currency {
+            background-image: url("../static/currency.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .unit {
+            background-image: url("../static/unit.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .type {
+            background-image: url("../static/typing.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .note {
+            background-image: url("../static/note.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgb(210, 64, 247);
+            }
+
+            to {
+                box-shadow: 0 0 20px rgb(210, 64, 247), 0 0 30px maroon, 0 0 40px maroon;
+            }
+        }
+
+        .about-container {
+            transform: translateY(-100px);
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .about-container p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ffffff;
+        }
+
+        .about-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbox">
+        <div class="nav">
+            <ul>
+                <li><a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo.png') }}"
+                            alt="Site Logo" height="80px" width="150px"></a></li>
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="about-container">
+        <h1>About Us</h1>
+        <p>Welcome to SwiftTools! We are dedicated to providing top-notch services and products to our clients. Our team
+            of professionals is committed to excellence and innovation in every project we undertake. With years of
+            experience in the industry, we strive to exceed our clients' expectations and deliver exceptional results.
+        </p>
+        <p>Our mission is to empower businesses and individuals by offering solutions that drive success and foster
+            growth. We believe in building long-term relationships based on trust, transparency, and mutual respect.</p>
+        <p>Thank you for choosing [Your Company Name]. We look forward to working with you and helping you achieve your
+            goals.</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 SwiftTools. All rights reserved.</p>
+    </div>
+</body>
+
+</html>

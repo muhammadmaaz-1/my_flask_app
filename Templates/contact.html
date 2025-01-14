@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='images/a.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Montserrat', sans-serif;
+            /* Make sure the body font uses Montserrat */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Ensures footer is pushed down */
+        }
+
+        /* Container for the entire navigation bar */
+        .navbox {
+            background-color: rgba(82, 81, 81, 0.3);
+            /* Light background color */
+            border-bottom: 1px solid black;
+            padding: 0;
+        }
+
+        /* Navigation styles */
+        .nav {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            background-color:rgb(22, 22, 22);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            padding: 0;
+        }
+
+        /* List styles */
+        .nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        /* List item styles */
+        .nav ul li {
+            margin-right: 20px;
+            /* Adds space between list items */
+        }
+
+        /* Link styles */
+        .nav ul li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            /* Sets text color to white */
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease, transform 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav ul li img {
+            height: 160px;
+            width: 200px;
+            /* Adjust logo size for consistency */
+        }
+
+        /* Hover effect for links */
+        .nav ul li a:hover {
+            color: rgba(200, 16, 16, 0.693);
+            /* Changes color on hover */
+            transform: translateX(10px);
+            /* Moves the link to the right by 10px */
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(22, 22, 22);
+            /* Semi-transparent gray */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: "Montserrat", serif;
+        }
+
+        .container {
+            padding: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .contact-info {
+            max-width: 40%;
+            color:#ddd;
+        }
+        .contact-info h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            
+        }
+        .contact-info p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .info-item i {
+            font-size: 24px;
+            background: #00bcd4;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .info-item div {
+            font-size: 16px;
+        }
+        .info-item div p {
+            margin: 0;
+        }
+        .form-container {
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 30%;
+        }
+        .form-container h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-container input,
+        .form-container textarea,
+        .form-container button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-container button {
+            background: #00bcd4;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .form-container button:hover {
+            background: #245e64;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbox">
+        <header class="header">
+            <nav class="nav">
+                <ul>
+                    <li><a href="{{ url_for('homepage') }}"><img src="{{ url_for('static', filename='images/logo.png') }}"alt="Site Logo" height="80px"width="150px"></a></li>
+                    <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    
+    <div class="container">
+        <!-- Contact Info Section -->
+        <div class="contact-info">
+            <h1>Contact Us</h1>
+            <p>Have questions or need assistance? Reach out to us, and we'll get back to you as soon as possible!</p>
+            <div class="info-item">
+                <i class="fas fa-home"></i>
+                <div>
+                    <p><strong>Address</strong></p>
+                    <p>SwiftTools,Gulshan,North Karachi</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <p><strong>Phone</strong></p>
+                    <p>000-999-123</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <p><strong>Email</strong></p>
+                    <p>SwiftTools@gmail.com </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="form-container">
+            <h2>Send Message</h2>
+            <form>
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Type your Message..." rows="5" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 SwiftTools. All rights reserved.</p>
+    </footer>
+</body>
+</html>

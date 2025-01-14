@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='images/a.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            /* Make sure the body font uses Montserrat */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Ensures footer is pushed down */
+        }
+
+        /* Container for the entire navigation bar */
+        .navbox {
+            background-color: rgba(22, 22, 22);
+            /* Light background color */
+            border-bottom: 1px solid black;
+            padding: 0;
+            width: 100%;
+        }
+
+        /* Navigation styles */
+        .nav {
+            height: 100px;
+            width: 100%;
+            display: flex;
+
+            /* Aligns logo and links on opposite sides */
+            align-items: center;
+            /* Vertically centers items */
+            padding: 10px;
+        }
+
+        /* List styles */
+        .nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        /* List item styles */
+        .nav ul li {
+            margin-right: 20px;
+            /* Adds space between list items */
+        }
+
+        /* Link styles */
+        .nav ul li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            /* Sets text color to white */
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease, transform 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav ul li img {
+            height: 160px;
+            width: 200px;
+            /* Adjust logo size for consistency */
+        }
+
+        /* Hover effect for links */
+        .nav ul li a:hover {
+            color: rgb(158, 10, 51);
+            /* Changes color on hover */
+            transform: translateX(10px);
+            /* Moves the link to the right by 10px */
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(22, 22, 22);
+            /* Semi-transparent gray */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: "Montserrat", serif;
+        }
+
+        .container {
+            margin-top: 100px;
+            background-color: rgb(22, 22, 22);
+            transform: translateY(-60px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 2px 4px 8px rgb(158, 10, 51);
+            color: #ffffff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(158, 10, 51);
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .select-container,
+        .input-container,
+        .output-container {
+            margin-bottom: 15px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 8px 2px;
+            margin-top: 5px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: #af1c8f;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+        }
+
+        .btn {
+            background-color: grey;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #000000;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: rgb(158, 10, 51);
+        }
+
+        .result {
+            background-color: rgb(22, 22, 22);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.3em;
+            color: #ffffff;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+
+            }
+        }
+
+        .input-container {
+            max-width: 324px;
+        }
+
+        .quantity-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbox">
+        <header class="header">
+            <nav class="nav">
+                <ul>
+                    <li><a href="{{ url_for('homepage') }}"><img
+                                src="{{ url_for('static', filename='images/logo.png') }}" alt="Site Logo" height="80px"
+                                width="150px"></a></li>
+                    <ul>
+                        <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+            </nav>
+        </header>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 SwiftTools. All rights reserved.</p>
+    </footer>
+
+    <div class="container">
+        <h1>Unit Converter</h1>
+
+        <div class="quantity-container">
+            <div class="select-container">
+                <label for="quantity">Select Quantity:</label>
+                <select id="quantity">
+                    <option value="length">Length</option>
+                    <option value="mass">Mass</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="time">Time</option>
+                    <option value="speed">Speed</option>
+                    <option value="power">Power</option>
+                </select>
+            </div>
+            <div class="input-container">
+                <label for="inputValue">Enter Value:</label>
+                <input type="number" id="inputValue" placeholder="Enter value to convert">
+            </div>
+
+            <div class="select-container" id="unitFromContainer">
+                <label for="unitFrom">From Unit:</label>
+                <select id="unitFrom"></select>
+            </div>
+
+            <div class="select-container" id="unitToContainer">
+                <label for="unitTo">To Unit:</label>
+                <select id="unitTo"></select>
+            </div>
+
+            <button class="btn" onclick="convert()">Convert</button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Add new unit arrays for speed, area, pressure, energy, power
+        const lengthUnits = ['meters', 'kilometers', 'miles', 'centimeters', 'inches'];
+        const massUnits = ['grams', 'kilograms', 'pounds', 'ounces', 'milligrams'];
+        const temperatureUnits = ['celsius', 'fahrenheit', 'kelvin'];
+        const timeUnits = ['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years'];
+        const speedUnits = ['m/s', 'km/h', 'mph'];
+        const powerUnits = ['watts', 'horsepower', 'kilowatts', 'megawatts'];
+
+        const quantitySelector = document.getElementById("quantity");
+        const unitFrom = document.getElementById("unitFrom");
+        const unitTo = document.getElementById("unitTo");
+        const inputValue = document.getElementById("inputValue");
+        const resultDiv = document.getElementById("result");
+
+        // Initialize units and update dropdown options
+        quantitySelector.addEventListener("change", updateUnits);
+        updateUnits(); // Initialize with default quantity
+
+        function updateUnits() {
+            const quantity = quantitySelector.value;
+            let units = [];
+            switch (quantity) {
+                case "length":
+                    units = lengthUnits;
+                    break;
+                case "mass":
+                    units = massUnits;
+                    break;
+                case "temperature":
+                    units = temperatureUnits;
+                    break;
+                case "time":
+                    units = timeUnits;
+                    break;
+                case "speed":
+                    units = speedUnits;
+                    break;
+                case "power":
+                    units = powerUnits;
+                    break;
+            }
+
+            populateUnitSelect(unitFrom, units);
+            populateUnitSelect(unitTo, units);
+        }
+
+        function populateUnitSelect(selectElement, units) {
+            selectElement.innerHTML = ''; // Clear existing options
+            units.forEach(unit => {
+                const option = document.createElement("option");
+                option.value = unit;
+                option.textContent = unit.charAt(0).toUpperCase() + unit.slice(1);
+                selectElement.appendChild(option);
+            });
+        }
+
+        function convert() {
+            const quantity = quantitySelector.value;
+            const value = parseFloat(inputValue.value);
+            if (isNaN(value)) {
+                resultDiv.textContent = "Please enter a valid number.";
+                return;
+            }
+
+            const fromUnit = unitFrom.value;
+            const toUnit = unitTo.value;
+
+            let result;
+            switch (quantity) {
+                case "length":
+                    result = convertLength(value, fromUnit, toUnit);
+                    break;
+                case "mass":
+                    result = convertMass(value, fromUnit, toUnit);
+                    break;
+                case "temperature":
+                    result = convertTemperature(value, fromUnit, toUnit);
+                    break;
+                case "time":
+                    result = convertTime(value, fromUnit, toUnit);
+                    break;
+                case "speed":
+                    result = convertSpeed(value, fromUnit, toUnit);
+                    break;
+                case "power":
+                    result = convertPower(value, fromUnit, toUnit);
+                    break;
+            }
+            resultDiv.textContent = `Result: ${result}`;
+        }
+
+        function convertLength(value, fromUnit, toUnit) {
+            const meters = {
+                'meters': 1,
+                'kilometers': 1000,
+                'miles': 1609.34,
+                'centimeters': 0.01,
+                'millimeters': 0.001,
+                'inches': 0.0254,
+            };
+            return value * meters[fromUnit] / meters[toUnit];
+        }
+
+        function convertMass(value, fromUnit, toUnit) {
+            const grams = {
+                'grams': 1,
+                'kilograms': 1000,
+                'pounds': 453.592,
+                'ounces': 28.3495,
+                'milligrams': 0.001,
+            };
+            return value * grams[fromUnit] / grams[toUnit];
+        }
+
+        function convertTemperature(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            let celsius;
+            switch (fromUnit) {
+                case 'celsius':
+                    celsius = value;
+                    break;
+                case 'fahrenheit':
+                    celsius = (value - 32) * 5 / 9;
+                    break;
+                case 'kelvin':
+                    celsius = value - 273.15;
+                    break;
+            }
+            switch (toUnit) {
+                case 'celsius':
+                    return celsius;
+                case 'fahrenheit':
+                    return celsius * 9 / 5 + 32;
+                case 'kelvin':
+                    return celsius + 273.15;
+            }
+        }
+
+        function convertTime(value, fromUnit, toUnit) {
+            const seconds = {
+                'seconds': 1,
+                'minutes': 60,
+                'hours': 3600,
+                'days': 86400,
+                'weeks': 604800,
+                'months': 2592000, // approx 30 days per month
+                'years': 31536000 // 365 days
+            };
+            return value * seconds[fromUnit] / seconds[toUnit];
+        }
+
+        function convertSpeed(value, fromUnit, toUnit) {
+            const metersPerSecond = {
+                'm/s': 1,
+                'km/h': 0.277778,
+                'mph': 0.44704,
+            };
+            return value * metersPerSecond[fromUnit] / metersPerSecond[toUnit];
+        }
+
+        function convertPower(value, fromUnit, toUnit) {
+            const watts = {
+                'watts': 1,
+                'horsepower': 745.7,
+                'kilowatts': 1000,
+                'megawatts': 1000000
+            };
+            return value * watts[fromUnit] / watts[toUnit];
+        }
+    </script>
+</body>
+
+</html>

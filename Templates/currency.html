@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>currency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='images/a.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Montserrat', sans-serif;
+            /* Make sure the body font uses Montserrat */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Ensures footer is pushed down */
+        }
+
+        /* Container for the entire navigation bar */
+        .navbox {
+            background-color: rgba(82, 81, 81, 0.3);
+            /* Light background color */
+            border-bottom: 1px solid black;
+            padding: 0;
+        }
+
+        /* Navigation styles */
+        .nav {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            background-color: rgb(22, 22, 22);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            padding: 0;
+        }
+
+        /* List styles */
+        .nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        /* List item styles */
+        .nav ul li {
+            margin-right: 20px;
+            /* Adds space between list items */
+        }
+
+        /* Link styles */
+        .nav ul li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            /* Sets text color to white */
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease, transform 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav ul li img {
+            height: 160px;
+            width: 200px;
+            /* Adjust logo size for consistency */
+        }
+
+        /* Hover effect for links */
+        .nav ul li a:hover {
+            color: rgba(158, 10, 51, 0.693);
+            /* Changes color on hover */
+            transform: translateX(10px);
+            /* Moves the link to the right by 10px */
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(22, 22, 22);
+            /* Semi-transparent gray */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: "Montserrat", serif;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            align-items: center;
+            transform: translateY(+10px);
+            background-color: rgb(22, 22, 22);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgb(158, 10, 51);
+            text-align: center;
+            color: rgb(255, 255, 255);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+            color: rgb(255, 255, 255);
+        }
+
+        .container select,
+        .container input,
+        .container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            align-items: center;
+            border: 1px solid rgb(158, 10, 51);
+            border-radius: 10px;
+            font-size: 16px;
+            font-size: 16px;
+
+        }
+
+        .container button {
+            background-color: rgb(122, 114, 114);
+            color: white;
+            border: rgb(255, 255, 255);
+            box-shadow: 2px 2px 7px black;
+            border-radius: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+            background-color: rgb(158, 10, 51);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+        }
+
+        /* Styling the Amount input field to match other elements */
+        #amount {
+            width: 100%;
+            /* Makes the input field full width */
+            padding: 10px;
+            /* Consistent padding for uniform size */
+            margin: 10px 0;
+            /* Adds spacing between elements */
+            border: 1px solid rgb(158, 10, 51);
+            /* Matches the other input elements */
+            border-radius: 5px;
+            /* Consistent border radius for rounded corners */
+            font-size: 16px;
+            /* Same font size as other fields */
+            box-sizing: border-box;
+            /* Includes padding in the width calculation */
+            background-color: transparent;
+            /* Keeps the background matching the theme */
+            color: rgb(255, 255, 255);
+            /* Ensures text visibility */
+            outline: none;
+            /* Removes the default focus outline */
+        }
+
+        #amount::placeholder {
+            color: lightgray;
+            /* Placeholder color for better visibility */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+
+            }
+        }
+
+        .input-container {
+            max-width: 324px;
+        }
+
+        .quantity-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbox">
+        <header class="header">
+            <nav class="nav">
+                <ul>
+                    <li><a href="{{ url_for('homepage') }}"><img
+                                src="{{ url_for('static', filename='images/logo.png') }}" alt="Site Logo" height="80px"
+                                width="150px"></a></li>
+                    <ul>
+                        <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="container a">
+        <h1>Currency Converter</h1>
+        <div>
+            <label for="from-currency">From Currency</label>
+            <select id="from-currency"></select>
+        </div>
+
+        <div>
+            <label for="to-currency">To Currency</label>
+            <select id="to-currency"></select>
+        </div>
+
+        <div>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount" />
+        </div>
+
+        <button id="convert-btn">Convert</button>
+
+        <div class="result a">
+            <p id="conversion-result"></p>
+        </div>
+        <div class="info">
+            <p>This converter supports <strong>160+ currencies</strong> provided by ExchangeRate-API.</p>
+            <p><a href="https://www.exchangerate-api.com/" target="_blank">Learn more</a></p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 SwiftTools. All rights reserved.</p>
+    </footer>
+    <script>
+        async function fetchCurrencies() {
+            try {
+                const response = await fetch('/api/currencies');
+                const data = await response.json();
+
+                if (data.error) {
+                    alert('Error fetching currency data.');
+                } else {
+                    const fromCurrencySelect = document.getElementById('from-currency');
+                    const toCurrencySelect = document.getElementById('to-currency');
+
+                    for (const currency in data) {
+                        const option = document.createElement('option');
+                        option.value = currency;
+                        option.textContent = currency;
+                        fromCurrencySelect.appendChild(option);
+                        toCurrencySelect.appendChild(option.cloneNode(true));
+                    }
+                }
+            } catch (error) {
+                alert('Error fetching currency data: ' + error.message);
+            }
+        }
+
+        async function convertCurrency() {
+            const fromCurrency = document.getElementById('from-currency').value;
+            const toCurrency = document.getElementById('to-currency').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (!amount || isNaN(amount)) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    alert('Error fetching conversion data.');
+                } else {
+                    const result = data.result;
+                    document.getElementById('conversion-result').textContent = `${amount} ${fromCurrency} = ${result} ${toCurrency}`;
+                }
+            } catch (error) {
+                alert('Error fetching conversion data: ' + error.message);
+            }
+        }
+
+        window.onload = () => {
+            fetchCurrencies();
+            document.getElementById('convert-btn').addEventListener('click', convertCurrency);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <title>notes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='images/a.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Montserrat', sans-serif;
+            align-items: center;
+            /* Make sure the body font uses Montserrat */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Ensures footer is pushed down */
+        }
+
+        /* Container for the entire navigation bar */
+        .navbox {
+            background-color: rgba(82, 81, 81, 0.3);
+            min-width: 100%;
+            /* Light background color */
+            border-bottom: 1px solid black;
+            padding: 0;
+        }
+
+        /* Navigation styles */
+        .nav {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            background-color: rgb(22, 22, 22);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            padding: 0;
+        }
+
+        /* List styles */
+        .nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        /* List item styles */
+        .nav ul li {
+            margin-right: 20px;
+            /* Adds space between list items */
+        }
+
+        /* Link styles */
+        .nav ul li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            /* Sets text color to white */
+            font-weight: bold;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.3s ease, transform 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav ul li img {
+            height: 160px;
+            width: 200px;
+            /* Adjust logo size for consistency */
+        }
+
+        /* Hover effect for links */
+        .nav ul li a:hover {
+            color: rgb(158, 16, 51);
+            /* Changes color on hover */
+            transform: translateX(10px);
+            /* Moves the link to the right by 10px */
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin-top: 60px;
+            align-items: center;
+            background-image: url('../static/p.jpg');
+            background: #494949;
+            background-size: contain;
+            /* Adjusts to fit inside the container */
+            background-position: center;
+            border-radius: 8px;
+            border-color: #fffdfd;
+            transform: translateY(+100);
+            overflow: hidden;
+        }
+
+        .toolbar {
+            padding: 16px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(136, 136, 136, 0.7);
+            /* Transparent purple */
+            border-radius: 10px;
+            /* Optional for rounded corners */
+            backdrop-filter: blur(10px);
+            /* Optional frosted glass effect */
+        }
+
+        .toolbar .head {
+            display: flex;
+            grid-gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar .head>input {
+            max-width: 100px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 2px solid #ffffff;
+            outline: none;
+        }
+
+        .toolbar .head select {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .toolbar .btn-toolbar {
+            display: flex;
+            grid-gap: 10px;
+        }
+
+        .toolbar .btn-toolbar button {
+            background: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #content {
+            padding: 16px;
+            outline: none;
+            background-color: #ffffff;
+            background-size: contain;
+            /* Adjusts to fit inside the container */
+            background-position: center;
+            min-height: 300px;
+            color: #292929;
+            border-color: #5c004c;
+            resize: vertical;
+            border: 3px solid rgb(255, 255, 255);
+            /* White outline */
+            border-radius: 20px;
+            /* Optional for rounded corners */
+            backdrop-filter: blur(20px);
+            /* Optional frosted glass effect */
+            font-size: 1.5rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(22, 22, 22);
+            /* Semi-transparent gray */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: "Montserrat", serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbox">
+        <header class="header">
+            <nav class="nav">
+                <ul>
+                    <li><a href="{{ url_for('homepage') }}"><img
+                                src="{{ url_for('static', filename='images/logo.png') }}" alt="Site Logo" height="80px"
+                                width="150px"></a></li>
+                    <ul>
+                        <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="container">
+        <div class="toolbar">
+            <div class="head">
+                <input type="text" placeholder="Filename" value="untitled" id="filename">
+                <select onchange="fileHandle(this.value); this.selectedIndex=0">
+                    <option value="" selected="" hidden="" disabled="">File</option>
+                    <option value="new">New file</option>
+                    <option value="pdf">Save as PDF</option>
+                </select>
+                <select onchange="formatDoc('formatBlock', this.value); this.selectedIndex=0;">
+                    <option value="" selected="" hidden="" disabled="">Format</option>
+                    <option value="h1">Heading 1</option>
+                    <option value="h2">Heading 2</option>
+                    <option value="h3">Heading 3</option>
+                    <option value="h4">Heading 4</option>
+                    <option value="h5">Heading 5</option>
+                    <option value="h6">Heading 6</option>
+                    <option value="p">Paragraph</option>
+                </select>
+                <select onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;">
+                    <option value="" selected="" hidden="" disabled="">Font size</option>
+                    <option value="1">Extra small</option>
+                    <option value="2">Small</option>
+                    <option value="3">Regular</option>
+                    <option value="4">Medium</option>
+                    <option value="5">Large</option>
+                    <option value="6">Extra Large</option>
+                    <option value="7">Big</option>
+                </select>
+                <div class="color">
+                    <span>Color</span>
+                    <input type="color" onchange="changeColor(this)">
+                </div>
+                <div class="color">
+                    <span>Background</span>
+                    <input type="color" onchange="changeBackgroundColor(this)">
+                </div>
+            </div>
+            <div class="btn-toolbar">
+                <button onclick="formatDoc('undo')"><i class='bx bx-undo'></i></button>
+                <button onclick="formatDoc('redo')"><i class='bx bx-redo'></i></button>
+                <button onclick="formatDoc('bold')"><i class='bx bx-bold'></i></button>
+                <button onclick="formatDoc('underline')"><i class='bx bx-underline'></i></button>
+                <button onclick="formatDoc('italic')"><i class='bx bx-italic'></i></button>
+                <button onclick="formatDoc('justifyLeft')"><i class='bx bx-align-left'></i></button>
+                <button onclick="formatDoc('justifyCenter')"><i class='bx bx-align-middle'></i></button>
+                <button onclick="formatDoc('justifyRight')"><i class='bx bx-align-right'></i></button>
+                <button onclick="formatDoc('justifyFull')"><i class='bx bx-align-justify'></i></button>
+                <button onclick="formatDoc('insertOrderedList')"><i class='bx bx-list-ol'></i></button>
+            </div>
+        </div>
+        <div id="content" contenteditable="true" spellcheck="false"></div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 SwiftTools. All rights reserved.</p>
+    </footer>
+    <script>
+        // Format document with selected action
+        function formatDoc(command, value = null) {
+            document.execCommand(command, false, value);
+        }
+
+        // Change text color
+        function changeColor(input) {
+            document.execCommand('foreColor', true, input.value);
+        }
+
+        // Change background color
+        function changeBackgroundColor(input) {
+            document.execCommand('backColor', true, input.value);
+        }
+
+        // Handle file operations (new file, save as pdf)
+        function fileHandle(action) {
+            if (action === 'new') {
+                document.getElementById('content').innerHTML = '';
+            } else if (action === 'pdf') {
+                saveAsPdf();
+            }
+        }
+        function saveAsPdf() {
+            const content = document.getElementById('content');
+            const filename = document.getElementById('filename').value || 'untitled';
+
+            // Create the PDF using html2pdf
+            html2pdf().from(content).save(filename + '.pdf');
+        }
+    </script>
+</body>
+
+</html>
